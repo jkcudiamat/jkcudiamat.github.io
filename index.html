@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacob Cudiamat — Cybersecurity Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS — Edit these to restyle easily
+       ============================================= */
+    :root {
+      --bg:        #0d0f14;
+      --bg-card:   #141720;
+      --bg-subtle: #1a1e2e;
+      --border:    rgba(255,255,255,0.07);
+      --border-hi: rgba(255,255,255,0.14);
+      --accent:    #5ee7c0;        /* teal accent */
+      --accent2:   #7b8cde;        /* blue-purple accent */
+      --text:      #e8eaf0;
+      --text-muted:#8a9ab5;
+      --text-faint:#4a5470;
+      --font-sans: 'DM Sans', sans-serif;
+      --font-serif:'DM Serif Display', serif;
+      --font-mono: 'DM Mono', monospace;
+      --radius:    12px;
+      --radius-sm: 6px;
+      --transition:0.2s ease;
+
+      /* ── Section colors — swap these hex values ── */
+      --tag-cyber: #1a3a2e;
+      --tag-cyber-text: #5ee7c0;
+      --tag-dev:   #1a1f3a;
+      --tag-dev-text: #7b8cde;
+      --tag-sys:   #2a1f14;
+      --tag-sys-text: #e29f5c;
+    }
+
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity var(--transition); }
+    a:hover { opacity: 0.75; }
+
+    img { display: block; max-width: 100%; }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section { padding: 5rem 0; }
+
+    /* =============================================
+       NAV
+       ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--accent); opacity: 1; }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    #hero {
+      padding: 10rem 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.65em 1.4em;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a1a14;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border-hi);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
+      pointer-events: none;
+    }
+
+    /* =============================================
+       SECTION HEADINGS
+       ============================================= */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+
+    /* =============================================
+       ABOUT
+       ============================================= */
+    #about .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    #about p {
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* =============================================
+       SKILLS
+       ============================================= */
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color var(--transition);
+    }
+
+    .skill-card:hover { border-color: var(--border-hi); }
+
+    .skill-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      padding: 0.25em 0.7em;
+      border-radius: 4px;
+      font-weight: 400;
+    }
+
+    .tag-cyber { background: var(--tag-cyber); color: var(--tag-cyber-text); }
+    .tag-dev   { background: var(--tag-dev);   color: var(--tag-dev-text);   }
+    .tag-sys   { background: var(--tag-sys);   color: var(--tag-sys-text);   }
+
+    /* =============================================
+       EXPERIENCE
+       ============================================= */
+    #experience .timeline { position: relative; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-meta {
+      text-align: right;
+      padding-top: 0.15rem;
+    }
+
+    .exp-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+    }
+
+    .exp-company {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .exp-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .exp-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .exp-body li {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 0.25rem 0 0.25rem 1rem;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .exp-body li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-faint);
+      font-size: 12px;
+    }
+
+    /* =============================================
+       PROJECTS
+       ============================================= */
+    #projects .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .project-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    /* =============================================
+       EDUCATION
+       ============================================= */
+    #education .edu-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .edu-degree {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-school {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-detail {
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .edu-gpa {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      color: var(--accent);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .edu-gpa small {
+      display: block;
+      font-size: 10px;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.15rem;
+    }
+
+    /* =============================================
+       CERTS
+       ============================================= */
+    .cert-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.45em 1em;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .cert-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* =============================================
+       CONTACT
+       ============================================= */
+    #contact {
+      text-align: center;
+    }
+
+    #contact h2 { margin-bottom: 0.75rem; }
+
+    #contact p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       DIVIDER
+       ============================================= */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+    @media (max-width: 680px) {
+      .container { padding: 0 1.25rem; }
+      #about .grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-meta { text-align: left; }
+      #projects .project-grid { grid-template-columns: 1fr; }
+      .edu-card { flex-direction: column; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ─────────────────────────────────── -->
+  <nav>
+    <div class="container">
+      <span class="nav-logo">jc.dev</span>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="container" style="position:relative;">
+      <p class="hero-eyebrow">Cybersecurity Engineer · Los Angeles, CA</p>
+      <h1>Jacob<br><em>Cudiamat</em></h1>
+      <p class="hero-sub">
+        M.S. Cybersecurity Engineering graduate building secure systems, SOC infrastructure, and zero-trust architectures. U.S. Citizen with a 4.0 GPA and a background spanning offensive security, cloud, and software engineering.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:jacob.k.cudiamat@gmail.com">Get in touch</a>
+        <a class="btn btn-outline" href="https://linkedin.com/in/jacob-cudiamat" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── ABOUT ─────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">About</p>
+      <div class="grid">
+        <div>
+          <h2>Security-first<br>engineering mindset.</h2>
+          <p>
+            I'm a cybersecurity engineer with a master's degree from USD and a computer science background from Cal Lutheran. I care about building things that are both robust and secure — from cloud SOC infrastructure to zero-trust VPN deployments.
+          </p>
+          <p>
+            Beyond the technical work, I've spent years coaching volleyball — a reminder that leadership, communication, and adaptability matter just as much as technical skill. In 2025, I was selected for the Filipino-American Nation Select Team, competing internationally.
+          </p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">4.0</div>
+            <div class="stat-label">M.S. GPA,<br>USD</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">60%</div>
+            <div class="stat-label">Reduction in critical vulnerabilities at Torero</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">40%</div>
+            <div class="stat-label">Faster incident response via Azure SOC</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">200+</div>
+            <div class="stat-label">Users supported across platforms</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SKILLS ─────────────────────────────────── -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">Technical Skills</p>
+      <h2>What I work with.</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <h3>Security & Detection</h3>
+          <div class="tags">
+            <span class="tag tag-cyber">Splunk</span>
+            <span class="tag tag-cyber">Wireshark</span>
+            <span class="tag tag-cyber">Nmap</span>
+            <span class="tag tag-cyber">Security Onion</span>
+            <span class="tag tag-cyber">Nessus</span>
+            <span class="tag tag-cyber">Azure Sentinel</span>
+            <span class="tag tag-cyber">NIST 800-171</span>
+            <span class="tag tag-cyber">Zero Trust</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Programming</h3>
+          <div class="tags">
+            <span class="tag tag-dev">Python</span>
+            <span class="tag tag-dev">Java</span>
+            <span class="tag tag-dev">C++</span>
+            <span class="tag tag-dev">SQL</span>
+            <span class="tag tag-dev">Multithreading</span>
+            <span class="tag tag-dev">OOP</span>
+            <span class="tag tag-dev">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Cloud & Infrastructure</h3>
+          <div class="tags">
+            <span class="tag tag-cyber">AWS</span>
+            <span class="tag tag-cyber">Azure</span>
+            <span class="tag tag-cyber">WireGuard VPN</span>
+            <span class="tag tag-cyber">MFA</span>
+            <span class="tag tag-cyber">Log Analytics</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Systems & Networking</h3>
+          <div class="tags">
+            <span class="tag tag-sys">Linux CLI</span>
+            <span class="tag tag-sys">Windows</span>
+            <span class="tag tag-sys">macOS</span>
+            <span class="tag tag-sys">DNS</span>
+            <span class="tag tag-sys">DHCP</span>
+            <span class="tag tag-sys">Active Directory</span>
+            <span class="tag tag-sys">ServiceNow</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Data & Tools</h3>
+          <div class="tags">
+            <span class="tag tag-dev">MySQL</span>
+            <span class="tag tag-dev">Excel</span>
+            <span class="tag tag-dev">Tableau</span>
+            <span class="tag tag-dev">Git</span>
+            <span class="tag tag-dev">Microsoft 365</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>Security Practices</h3>
+          <div class="tags">
+            <span class="tag tag-cyber">Incident Response</span>
+            <span class="tag tag-cyber">Threat Detection</span>
+            <span class="tag tag-cyber">Vuln. Management</span>
+            <span class="tag tag-cyber">Endpoint Hardening</span>
+            <span class="tag tag-cyber">Root Cause Analysis</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Certifications -->
+      <p class="section-label" style="margin-top: 3rem; margin-bottom: 0.25rem;">Certifications</p>
+      <div class="cert-row">
+        <span class="cert-badge">
+          <span class="cert-dot"></span>
+          CompTIA Security+ — In Progress
+        </span>
+        <span class="cert-badge">
+          <span class="cert-dot"></span>
+          AWS Certified Cloud Practitioner — In Progress
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── EXPERIENCE ─────────────────────────────────── -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Experience</p>
+      <h2>Where I've worked.</h2>
+      <div class="timeline">
+
+        <!-- Job 1 -->
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">Jan 2025 – Mar 2025</div>
+            <div class="exp-company">San Diego, CA</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-title">Cybersecurity Analyst — Torero Consulting Group</div>
+            <ul>
+              <li>Conducted vulnerability assessments and risk analysis to identify security gaps across systems and applications.</li>
+              <li>Reduced critical vulnerabilities by 60% through prioritized mitigation and risk-based analysis.</li>
+              <li>Delivered a NIST SP 800-171 aligned security plan used as a baseline for system hardening.</li>
+              <li>Supported remediation by validating fixes and improving system configurations through structured testing.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">May 2022 – Jun 2023</div>
+            <div class="exp-company">Los Angeles, CA</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-title">Web Developer & IT Support Analyst — Top-Down Analytics</div>
+            <ul>
+              <li>Supported 200+ users across Windows and macOS environments, resolving authentication, system, and network issues.</li>
+              <li>Diagnosed and resolved 30–40 weekly tickets across software, network, and endpoint systems.</li>
+              <li>Implemented multi-factor authentication (MFA), improving account security and reducing unauthorized access risk.</li>
+              <li>Improved web dashboard performance by 30% through debugging and system-level optimization.</li>
+              <li>Installed, configured, and maintained laptops, desktops, and peripherals for end users.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Volleyball coaching -->
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">2019 – Present</div>
+            <div class="exp-company">Los Angeles, CA</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-title">Volleyball Coach — Sunshine Volleyball Club & Cal Lutheran Elite Camp</div>
+            <ul>
+              <li>Training high school boys and girls in advanced skills, teamwork, and leadership.</li>
+              <li>Selected for the Filipino-American Nation Select Team (2025), competing internationally against the Philippines National Team.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── PROJECTS ─────────────────────────────────── -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Projects</p>
+      <h2>Things I've built.</h2>
+      <div class="project-grid">
+
+        <div class="project-card">
+          <div class="project-icon">☁️</div>
+          <h3>Azure Mini SOC</h3>
+          <p>Cloud-based Security Operations Center using Azure Sentinel and Log Analytics. Created alert rules and automated workflows, cutting incident response time by 40%.</p>
+          <div class="project-stack">
+            <span class="tag tag-cyber">Azure Sentinel</span>
+            <span class="tag tag-cyber">Log Analytics</span>
+            <span class="tag tag-cyber">SIEM</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🔐</div>
+          <h3>Zero Trust VPN (AWS)</h3>
+          <p>Designed and deployed a WireGuard VPN with MFA on AWS to enable secure remote access following zero trust principles. Configured authentication and network access controls.</p>
+          <div class="project-stack">
+            <span class="tag tag-cyber">WireGuard</span>
+            <span class="tag tag-cyber">AWS</span>
+            <span class="tag tag-cyber">MFA</span>
+            <span class="tag tag-cyber">Zero Trust</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🔍</div>
+          <h3>Offensive Security Lab</h3>
+          <p>Vulnerability testing on Linux systems using Nmap, Wireshark, and Security Onion. Identified and documented remediation strategies for 20+ vulnerabilities.</p>
+          <div class="project-stack">
+            <span class="tag tag-cyber">Nmap</span>
+            <span class="tag tag-cyber">Wireshark</span>
+            <span class="tag tag-cyber">Security Onion</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">✉️</div>
+          <h3>Java Email Client-Server App</h3>
+          <p>Multithreaded client-server system built with Java sockets, MySQL backend, and a GUI. Implemented secure authentication and concurrent user support with synchronization techniques.</p>
+          <div class="project-stack">
+            <span class="tag tag-dev">Java</span>
+            <span class="tag tag-dev">MySQL</span>
+            <span class="tag tag-dev">Multithreading</span>
+            <span class="tag tag-dev">OOP</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── EDUCATION ─────────────────────────────────── -->
+  <section id="education">
+    <div class="container">
+      <p class="section-label">Education</p>
+      <h2>Academic background.</h2>
+      <div class="edu-grid">
+
+        <div class="edu-card">
+          <div>
+            <div class="edu-degree">M.S. Cybersecurity Engineering</div>
+            <div class="edu-school">University of San Diego, San Diego, CA</div>
+            <div class="edu-detail">Graduated May 2025</div>
+          </div>
+          <div>
+            <div class="edu-gpa">4.0
+              <small>GPA</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div>
+            <div class="edu-degree">B.S. Computer Science — Minor in Business Administration</div>
+            <div class="edu-school">California Lutheran University, Thousand Oaks, CA</div>
+            <div class="edu-detail">
+              Graduated May 2023 &nbsp;·&nbsp; Magna Cum Laude<br>
+              Dean's List &nbsp;·&nbsp; Scholar Athletic Society &nbsp;·&nbsp; NCAA Division III Men's Volleyball<br>
+              Courses: Data Structures & Algorithms, Operating Systems, Secure Software Engineering, Network Engineering
+            </div>
+          </div>
+          <div>
+            <div class="edu-gpa">3.7
+              <small>GPA</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── CONTACT ─────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2>Let's connect.</h2>
+      <p>Open to full-time cybersecurity, software engineering, and IT roles. Feel free to reach out directly.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:jacob.k.cudiamat@gmail.com">jacob.k.cudiamat@gmail.com</a>
+        <a class="btn btn-outline" href="https://linkedin.com/in/jacob-cudiamat" target="_blank">LinkedIn</a>
+        <a class="btn btn-outline" href="tel:+14243372222">(424) 337-2222</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Jacob Cudiamat &nbsp;·&nbsp; Los Angeles, CA &nbsp;·&nbsp; U.S. Citizen</p>
+    </div>
+  </footer>
+
+</body>
+</html>
