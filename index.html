@@ -696,9 +696,25 @@
           <div class="tags">
             <span class="tag tag-cyber">AWS</span>
             <span class="tag tag-cyber">Azure</span>
+            <span class="tag tag-cyber">Docker</span>
+            <span class="tag tag-cyber">Kubernetes</span>
+            <span class="tag tag-cyber">Helm</span>
             <span class="tag tag-cyber">WireGuard VPN</span>
             <span class="tag tag-cyber">MFA</span>
             <span class="tag tag-cyber">Log Analytics</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>DevSecOps & CI/CD</h3>
+          <div class="tags">
+            <span class="tag tag-dev">GitHub Actions</span>
+            <span class="tag tag-cyber">Trivy</span>
+            <span class="tag tag-cyber">Checkov</span>
+            <span class="tag tag-cyber">Falco eBPF</span>
+            <span class="tag tag-cyber">Bandit</span>
+            <span class="tag tag-dev">kubeconform</span>
+            <span class="tag tag-dev">Minikube</span>
           </div>
         </div>
 
@@ -825,6 +841,21 @@
       <p class="section-label">Projects</p>
       <h2>Things I've built.</h2>
       <div class="project-grid">
+
+        <div class="project-card">
+          <div class="project-icon">🔒</div>
+          <h3><a href="https://github.com/jkcudiamat/devsecops-local" target="_blank" style="color:var(--text);text-decoration:none;">DevSecOps CI/CD Pipeline ↗</a></h3>
+          <p>4-stage GitHub Actions pipeline with automated security gates — Checkov IaC scanning, Bandit SAST, Trivy CVE scanning, and offline Kubernetes manifest validation. Deployed a hardened Flask app on Minikube with Falco eBPF runtime threat detection, firing CRITICAL alerts on shell spawns and privilege escalation attempts.</p>
+          <div class="project-stack">
+            <span class="tag tag-dev">GitHub Actions</span>
+            <span class="tag tag-dev">Docker</span>
+            <span class="tag tag-dev">Kubernetes</span>
+            <span class="tag tag-cyber">Trivy</span>
+            <span class="tag tag-cyber">Checkov</span>
+            <span class="tag tag-cyber">Falco</span>
+            <span class="tag tag-cyber">Bandit</span>
+          </div>
+        </div>
 
         <div class="project-card">
           <div class="project-icon">☁️</div>
