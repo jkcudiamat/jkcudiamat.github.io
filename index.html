@@ -226,6 +226,18 @@
       transition: border-color var(--trans), color var(--trans);
     }
     .pill:hover { border-color: var(--border-hi); color: var(--text); }
+    /* LA location pill — Dodger Blue accent */
+    .pill-la {
+      border-color: rgba(77,157,224,0.38);
+      color: var(--blue);
+      background: rgba(77,157,224,0.07);
+    }
+    .pill-la .la-mark {
+      font-weight: 700;
+      font-family: var(--font-sans);
+      letter-spacing: 0.04em;
+      font-size: 12px;
+    }
 
     .hero-cta {
       display: flex;
@@ -636,6 +648,53 @@
       letter-spacing: 0.03em;
     }
 
+    /* ── OFF THE CLOCK / INTERESTS ── */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .interest-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      transition: border-color var(--trans), transform var(--trans);
+      position: relative;
+      overflow: hidden;
+    }
+    .interest-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity var(--trans);
+    }
+    .interest-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-2px);
+    }
+    .interest-card:hover::after { opacity: 1; }
+    /* per-card accent colors */
+    .ic-golf::after  { background: linear-gradient(90deg, var(--green), #86efac); }
+    .ic-vball::after { background: linear-gradient(90deg, var(--blue), #93C5FD); }
+    .ic-la::after    { background: linear-gradient(90deg, var(--blue), var(--gold)); }
+
+    .interest-icon { font-size: 26px; margin-bottom: 0.85rem; line-height: 1; }
+    .interest-name {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 0.45rem;
+      color: var(--text);
+    }
+    .interest-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       .container { padding: 0 1.25rem; }
@@ -648,6 +707,7 @@
       footer .container { justify-content: center; text-align: center; }
       .nav-links { display: none; }
       .hero-pills { display: none; }
+      .interests-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -663,6 +723,7 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#interests">Interests</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -693,8 +754,7 @@
     <div class="hero-pills">
       <span class="pill">🎓 USD — 4.0 GPA</span>
       <span class="pill">🎓 CLU — Magna Cum Laude</span>
-      <span class="pill">⚾ Dodgers</span>
-      <span class="pill">⛳ Golf</span>
+      <span class="pill pill-la"><span class="la-mark">LA</span> &nbsp;Los Angeles, CA</span>
       <span class="pill">🏐 Filipino-American Nation Team</span>
     </div>
 
@@ -1014,6 +1074,43 @@
           </div>
         </div>
         <div class="edu-gpa">3.7<small>GPA</small></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── OFF THE CLOCK ── -->
+<section id="interests">
+  <div class="container">
+    <p class="section-label">Off the Clock</p>
+    <h2>Beyond the terminal.</h2>
+    <div class="interests-grid">
+
+      <div class="interest-card ic-golf">
+        <div class="interest-icon">⛳</div>
+        <div class="interest-name">Golf</div>
+        <div class="interest-desc">
+          The back nine is the best nine. Golf teaches the same skills that make a good engineer — patience, course management, and staying composed when things don't go to plan.
+        </div>
+      </div>
+
+      <div class="interest-card ic-vball">
+        <div class="interest-icon">🏐</div>
+        <div class="interest-name">Volleyball</div>
+        <div class="interest-desc">
+          Competed NCAA D-III at Cal Lutheran and still coach high school athletes today. In 2025, selected for the Filipino-American Nation Select Team — competing internationally against the Philippines National Team.
+        </div>
+      </div>
+
+      <div class="interest-card ic-la">
+        <div class="interest-icon">⚾</div>
+        <div class="interest-name">Dodgers Baseball</div>
+        <div class="interest-desc">
+          Lifelong LA. Nothing beats a summer night at Chavez Ravine — the blue runs deep. Grew up watching this city compete at the highest level, which has a way of raising your standards everywhere else too.
+        </div>
       </div>
 
     </div>
