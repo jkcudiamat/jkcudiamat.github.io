@@ -181,7 +181,6 @@
       margin-bottom: 1.1rem;
     }
     .name-gradient {
-      /* Blue → light-blue → gold — Dodgers meets USD */
       background: linear-gradient(130deg, var(--blue) 0%, #93C5FD 45%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -207,7 +206,6 @@
       font-weight: 300;
     }
 
-    /* personal interest pills */
     .hero-pills {
       display: flex;
       flex-wrap: wrap;
@@ -226,7 +224,6 @@
       transition: border-color var(--trans), color var(--trans);
     }
     .pill:hover { border-color: var(--border-hi); color: var(--text); }
-    /* LA location pill — Dodger Blue accent */
     .pill-la {
       border-color: rgba(77,157,224,0.38);
       color: var(--blue);
@@ -373,13 +370,9 @@
       border-radius: 4px;
       border: 1px solid transparent;
     }
-    /* blue  — Security / Cloud */
     .tc { background: rgba(77,157,224,0.1);  color: #93C5FD; border-color: rgba(77,157,224,0.2); }
-    /* purple — Dev / Programming */
     .tp { background: rgba(155,114,207,0.1); color: #C4B5FD; border-color: rgba(155,114,207,0.2); }
-    /* gold — Systems */
     .tg { background: rgba(200,169,81,0.1);  color: #D4AF6A; border-color: rgba(200,169,81,0.2); }
-    /* green — DevSecOps */
     .tn { background: rgba(52,211,153,0.1);  color: #6EE7B7; border-color: rgba(52,211,153,0.2); }
 
     /* ── CERTS ── */
@@ -422,7 +415,6 @@
     }
     .exp-item:last-child { padding-bottom: 0; }
 
-    /* glowing timeline dot */
     .exp-dot {
       position: absolute;
       left: -5px; top: 6px;
@@ -497,7 +489,6 @@
       overflow: hidden;
       transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
     }
-    /* subtle top-edge gradient bar that animates in on hover */
     .project-card::after {
       content: '';
       position: absolute;
@@ -514,7 +505,6 @@
     }
     .project-card:hover::after { opacity: 1; }
 
-    /* featured card: full width, slightly larger */
     .project-card.featured {
       grid-column: 1 / -1;
       background: linear-gradient(135deg, var(--bg-card) 70%, rgba(26,95,168,0.08));
@@ -555,12 +545,10 @@
     }
     .edu-card:hover { transform: translateY(-2px); }
 
-    /* USD — Dodger Blue/Navy tones */
     .edu-usd {
       background: linear-gradient(140deg, rgba(0,40,104,0.22) 0%, rgba(0,40,104,0.06) 100%);
       border-color: rgba(77,157,224,0.22);
     }
-    /* CLU — Purple/Gold tones */
     .edu-clu {
       background: linear-gradient(140deg, rgba(75,46,131,0.2) 0%, rgba(75,46,131,0.05) 100%);
       border-color: rgba(155,114,207,0.22);
@@ -676,7 +664,6 @@
       transform: translateY(-2px);
     }
     .interest-card:hover::after { opacity: 1; }
-    /* per-card accent colors */
     .ic-golf::after  { background: linear-gradient(90deg, var(--green), #86efac); }
     .ic-vball::after { background: linear-gradient(90deg, var(--blue), #93C5FD); }
     .ic-la::after    { background: linear-gradient(90deg, var(--blue), var(--gold)); }
@@ -946,7 +933,6 @@
       line-height: 1.7;
       min-height: 90px;
     }
-
 
     /* ── DEMO EXPLAINER ── */
     .demo-explainer-intro {
@@ -1389,7 +1375,7 @@
         </div>
       </div>
 
-      <!-- FEATURED — full width -->
+      <!-- DevSecOps — full width featured -->
       <div class="project-card featured">
         <div class="project-icon">🔒</div>
         <h3><a href="https://github.com/jkcudiamat/devsecops-local" target="_blank">DevSecOps CI/CD Pipeline ↗</a></h3>
@@ -1402,17 +1388,6 @@
           <span class="tag tc">Checkov</span>
           <span class="tag tc">Falco eBPF</span>
           <span class="tag tc">Bandit</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-icon">☁️</div>
-        <h3>Azure Mini SOC</h3>
-        <p>Cloud-based Security Operations Center using Azure Sentinel and Log Analytics. Created alert rules and automated workflows, cutting incident response time by 40%.</p>
-        <div class="project-stack">
-          <span class="tag tc">Azure Sentinel</span>
-          <span class="tag tc">Log Analytics</span>
-          <span class="tag tc">SIEM</span>
         </div>
       </div>
 
@@ -1464,7 +1439,6 @@
     <h2>Academic background.</h2>
     <div class="edu-grid">
 
-      <!-- USD — Blue/Navy palette -->
       <div class="edu-card edu-usd">
         <div>
           <div class="edu-school-tag">University of San Diego</div>
@@ -1475,7 +1449,6 @@
         <div class="edu-gpa">4.0<small>GPA</small></div>
       </div>
 
-      <!-- CLU — Purple/Gold palette -->
       <div class="edu-card edu-clu">
         <div>
           <div class="edu-school-tag">California Lutheran University</div>
@@ -1604,7 +1577,6 @@ function toggleDemo(btn) {
   panel.style.display = isOpen ? 'none' : 'block';
   btn.classList.toggle('open', !isOpen);
   if (!isOpen) {
-    // auto-select first scenario on open
     selectScenario(document.querySelector('.scenario-btn.active') || document.querySelector('.scenario-btn'), 0);
   }
 }
@@ -1614,7 +1586,6 @@ function selectScenario(btn, idx) {
   btn.classList.add('active');
   const s = SCENARIOS[idx];
 
-  // Animate feature values
   const ids = ['f0','f1','f2','f3','f4','f5'];
   ids.forEach((id, i) => {
     const el = document.getElementById(id);
@@ -1625,22 +1596,18 @@ function selectScenario(btn, idx) {
     }, i * 60);
   });
 
-  // Result verdict (delayed for dramatic effect)
   setTimeout(() => {
     const verdict = document.getElementById('resultVerdict');
     verdict.className = 'result-verdict ' + s.type;
     verdict.querySelector('.verdict-label').textContent = s.label;
 
-    // Confidence bar
     document.getElementById('confBarFill').style.width = s.confidence + '%';
     document.getElementById('confPct').textContent = s.confidence + '%';
 
-    // Severity
     const sev = document.getElementById('severityBadge');
     sev.className = 'severity-badge ' + s.sevClass;
     sev.textContent = s.severity;
 
-    // Dynamic meaning explainer
     const meaning = document.getElementById('demoMeaning');
     if (s.type === 'benign') {
       meaning.className = 'demo-meaning benign visible';
@@ -1650,10 +1617,8 @@ function selectScenario(btn, idx) {
       meaning.innerHTML = `<strong>⚠ DDOS DETECTED — This is an attack.</strong> A DDoS (Distributed Denial-of-Service) attack floods a server with so much fake traffic that real users can't get through — like thousands of people simultaneously jamming a phone line. The model caught it by spotting the telltale signs: an enormous number of packets firing at extreme speed, nearly no traffic coming back, and each packet being tiny and identical.<div class="explain-grid"><div class="explain-item"><b>Confidence ${s.confidence}%</b>The model is almost certain this is an attack. In testing on 221,264 real flows, it correctly identified DDoS traffic 99.98% of the time.</div><div class="explain-item"><b>Severity: CRITICAL</b>The highest alert level. In a real SOC, this would trigger an immediate automated response — blocking the source IP at the firewall within seconds.</div><div class="explain-item"><b>The giveaway</b>Look at Total Backward Packets — it's near zero. The server is getting bombarded but has no real user to respond to. Normal traffic always has two-way communication.</div><div class="explain-item"><b>Real-world impact</b>Without detection, this attack could take a website offline in minutes. The ML model catches it faster than any human analyst could.</div></div>`;
     }
 
-    // API status
     document.getElementById('apiStatus').textContent = '200 OK · ' + (Math.floor(Math.random()*12)+4) + 'ms';
 
-    // API JSON
     const ts = new Date().toISOString();
     const jsonObj = {
       prediction: s.type === 'benign' ? 'Benign' : 'DDoS',
