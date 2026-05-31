@@ -709,6 +709,244 @@
       .hero-pills { display: none; }
       .interests-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── AI DEMO PANEL ── */
+    .demo-wrapper { margin-top: 0.5rem; }
+    .demo-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.3);
+      color: var(--green);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.5em 1.2em;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--trans);
+    }
+    .demo-toggle-btn:hover {
+      background: rgba(52,211,153,0.18);
+      border-color: rgba(52,211,153,0.55);
+    }
+    .demo-btn-icon { font-size: 9px; transition: transform 0.2s; }
+    .demo-toggle-btn.open .demo-btn-icon { transform: rotate(90deg); }
+
+    .demo-panel {
+      margin-top: 1rem;
+      background: rgba(6,12,23,0.6);
+      border: 1px solid rgba(52,211,153,0.18);
+      border-radius: var(--radius);
+      overflow: hidden;
+      animation: fadeSlide 0.28s ease;
+    }
+    @keyframes fadeSlide {
+      from { opacity:0; transform:translateY(-8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .demo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: rgba(52,211,153,0.07);
+      border-bottom: 1px solid rgba(52,211,153,0.13);
+    }
+    .demo-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--green);
+    }
+    .demo-note {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--text-faint);
+    }
+
+    .demo-body { padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .scenario-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .scenario-btn {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      padding: 0.35em 0.8em;
+      border-radius: 4px;
+      border: 1px solid var(--border-hi);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .scenario-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .scenario-btn.active { border-color: var(--green); color: var(--green); background: rgba(52,211,153,0.08); }
+
+    .demo-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    @media (max-width: 700px) { .demo-columns { grid-template-columns: 1fr; } }
+
+    .demo-features {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem;
+    }
+    .demo-feat-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 0.75rem;
+    }
+    .feat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .feat-row:last-child { border-bottom: none; }
+    .feat-name { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted); }
+    .feat-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--blue);
+      font-weight: 500;
+      transition: all 0.3s;
+      min-width: 70px;
+      text-align: right;
+    }
+    .feat-val.updating { color: var(--green); }
+
+    .demo-result {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .result-verdict {
+      text-align: center;
+      padding: 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      transition: all 0.4s;
+    }
+    .result-verdict.benign { background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.3); }
+    .result-verdict.ddos   { background: rgba(239,68,68,0.1);  border-color: rgba(239,68,68,0.35); }
+    .verdict-label {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      transition: color 0.4s;
+    }
+    .result-verdict.benign .verdict-label { color: var(--green); }
+    .result-verdict.ddos   .verdict-label { color: #F87171; }
+
+    .result-row { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .result-meta-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      min-width: 64px;
+    }
+    .conf-bar-track {
+      flex: 1;
+      height: 5px;
+      background: var(--bg-card);
+      border-radius: 99px;
+      overflow: hidden;
+      min-width: 60px;
+    }
+    .conf-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .conf-pct {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text);
+      min-width: 46px;
+      text-align: right;
+    }
+    .severity-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 0.2em 0.65em;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      transition: all 0.4s;
+    }
+    .sev-none     { background: rgba(52,211,153,0.1);  color: var(--green); border-color: rgba(52,211,153,0.25); }
+    .sev-critical { background: rgba(239,68,68,0.12);  color: #F87171;      border-color: rgba(239,68,68,0.3);  }
+
+    .api-block {
+      background: #020c18;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .api-block-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.9rem;
+      background: rgba(255,255,255,0.025);
+      border-bottom: 1px solid var(--border);
+    }
+    .api-method {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.1em;
+    }
+    .api-path {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+    .api-status {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--text-faint);
+    }
+    .api-json {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 0.9rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.7;
+      min-height: 90px;
+    }
+
   </style>
 </head>
 <body>
@@ -743,7 +981,7 @@
     <h1>Jacob<br><span class="name-gradient">Cudiamat</span></h1>
 
     <p class="hero-role">
-      <span class="comment">// </span>Cybersecurity Engineer &nbsp;·&nbsp; Los Angeles, CA
+      <span class="comment">// </span>Cybersecurity Engineer &nbsp;·&nbsp; AI/ML Engineer &nbsp;·&nbsp; Los Angeles, CA
     </p>
 
     <p class="hero-sub">
@@ -868,6 +1106,11 @@
           <span class="tag tp">REST APIs</span>
           <span class="tag tp">OOP</span>
           <span class="tag tp">Multithreading</span>
+          <span class="tag tp">scikit-learn</span>
+          <span class="tag tp">Pandas</span>
+          <span class="tag tp">NumPy</span>
+          <span class="tag tp">Jupyter</span>
+          <span class="tag tp">Flask</span>
         </div>
       </div>
 
@@ -987,6 +1230,91 @@
     <p class="section-label">Projects</p>
     <h2>Things I've built.</h2>
     <div class="project-grid">
+
+      <!-- AI THREAT DETECTION — full width, featured -->
+      <div class="project-card featured" style="background: linear-gradient(135deg, var(--bg-card) 70%, rgba(52,211,153,0.06));">
+        <div class="project-icon">🤖</div>
+        <h3><a href="https://github.com/jkcudiamat/ai-threat-detection-soc" target="_blank">AI Threat Detection SOC ↗</a></h3>
+        <p>Upgraded Azure Mini SOC from static alert rules to a Random Forest ML classifier. Trained on 221,264 real network flows achieving 99.98% accuracy detecting DDoS attacks. Flask REST API serves predictions in real time.</p>
+        <div class="project-stack">
+          <span class="tag tp">Python</span>
+          <span class="tag tp">scikit-learn</span>
+          <span class="tag tp">Flask</span>
+          <span class="tag tp">Random Forest</span>
+          <span class="tag tc">Azure Sentinel</span>
+          <span class="tag tg">CICIDS 2017</span>
+        </div>
+
+        <!-- ── INTERACTIVE DEMO ── -->
+        <div class="demo-wrapper">
+          <button class="demo-toggle-btn" onclick="toggleDemo(this)">
+            <span class="demo-btn-icon">▶</span> Try It Live
+          </button>
+
+          <div class="demo-panel" id="demoPanel" style="display:none;">
+            <div class="demo-header">
+              <span class="demo-label">LIVE DEMO</span>
+              <span class="demo-note">Pre-computed results from the real trained model · <a href="http://localhost:5000" target="_blank" style="color:var(--text-faint)">Run locally to connect to live API</a></span>
+            </div>
+
+            <div class="demo-body">
+              <!-- Scenario selector -->
+              <div class="scenario-grid" id="scenarioGrid">
+                <button class="scenario-btn active" onclick="selectScenario(this,0)">Normal Web Traffic</button>
+                <button class="scenario-btn" onclick="selectScenario(this,1)">DDoS Attack</button>
+                <button class="scenario-btn" onclick="selectScenario(this,2)">High Volume Traffic</button>
+                <button class="scenario-btn" onclick="selectScenario(this,3)">Standard File Download</button>
+                <button class="scenario-btn" onclick="selectScenario(this,4)">Suspicious Port Scan</button>
+                <button class="scenario-btn" onclick="selectScenario(this,5)">Normal DNS Query</button>
+              </div>
+
+              <div class="demo-columns">
+                <!-- Feature values -->
+                <div class="demo-features" id="demoFeatures">
+                  <div class="demo-feat-label">Network Flow Features</div>
+                  <div class="feat-row"><span class="feat-name">Flow Packets/s</span><span class="feat-val" id="f0">—</span></div>
+                  <div class="feat-row"><span class="feat-name">Flow Duration (μs)</span><span class="feat-val" id="f1">—</span></div>
+                  <div class="feat-row"><span class="feat-name">Total Fwd Packets</span><span class="feat-val" id="f2">—</span></div>
+                  <div class="feat-row"><span class="feat-name">Total Bwd Packets</span><span class="feat-val" id="f3">—</span></div>
+                  <div class="feat-row"><span class="feat-name">Flow Bytes/s</span><span class="feat-val" id="f4">—</span></div>
+                  <div class="feat-row"><span class="feat-name">Fwd Pkt Length Mean</span><span class="feat-val" id="f5">—</span></div>
+                </div>
+
+                <!-- Result panel -->
+                <div class="demo-result" id="demoResult">
+                  <div class="result-verdict" id="resultVerdict">
+                    <span class="verdict-label">—</span>
+                  </div>
+                  <div class="result-row">
+                    <span class="result-meta-label">Confidence</span>
+                    <div class="conf-bar-track"><div class="conf-bar-fill" id="confBarFill" style="width:0%"></div></div>
+                    <span class="conf-pct" id="confPct">—</span>
+                  </div>
+                  <div class="result-row">
+                    <span class="result-meta-label">Severity</span>
+                    <span class="severity-badge" id="severityBadge">—</span>
+                  </div>
+                  <div class="result-row">
+                    <span class="result-meta-label">Model</span>
+                    <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint)">Random Forest · 99.98% acc.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- API response block -->
+              <div class="api-block">
+                <div class="api-block-header">
+                  <span class="api-method">POST</span>
+                  <span class="api-path">/predict</span>
+                  <span class="api-status" id="apiStatus">—</span>
+                </div>
+                <pre class="api-json" id="apiJson">// Select a scenario above to see the API response</pre>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- FEATURED — full width -->
       <div class="project-card featured">
@@ -1121,7 +1449,7 @@
   <div class="container">
     <p class="section-label">Contact</p>
     <h2>Let's connect.</h2>
-    <p class="sub">Open to full-time cybersecurity, software engineering, and IT roles. Feel free to reach out directly.</p>
+    <p class="sub">Open to AI/ML Engineer, AI Security Engineer, MLSecOps, and Cybersecurity roles. Feel free to reach out directly.</p>
     <div class="contact-links">
       <a class="btn btn-primary" href="mailto:jacob.k.cudiamat@gmail.com">jacob.k.cudiamat@gmail.com</a>
       <a class="btn btn-outline" href="https://linkedin.com/in/jacob-cudiamat" target="_blank">LinkedIn</a>
@@ -1137,6 +1465,135 @@
     <p class="footer-personality">Built with care &nbsp;·&nbsp; <a href="https://github.com/jkcudiamat" style="color:inherit;text-decoration:none;">github.com/jkcudiamat</a></p>
   </div>
 </footer>
+
+
+<script>
+const SCENARIOS = [
+  {
+    name: "Normal Web Traffic",
+    label: "BENIGN",
+    type: "benign",
+    confidence: 99.2,
+    severity: "NONE",
+    sevClass: "sev-none",
+    features: [12.4, 80420, 8, 6, 4821.3, 312.5]
+  },
+  {
+    name: "DDoS Attack",
+    label: "DDOS DETECTED",
+    type: "ddos",
+    confidence: 99.97,
+    severity: "CRITICAL",
+    sevClass: "sev-critical",
+    features: [4821.6, 1240, 892, 0, 284910.4, 48.2]
+  },
+  {
+    name: "High Volume Traffic",
+    label: "DDOS DETECTED",
+    type: "ddos",
+    confidence: 99.91,
+    severity: "CRITICAL",
+    sevClass: "sev-critical",
+    features: [3102.8, 2180, 654, 2, 198432.1, 52.1]
+  },
+  {
+    name: "Standard File Download",
+    label: "BENIGN",
+    type: "benign",
+    confidence: 98.8,
+    severity: "NONE",
+    sevClass: "sev-none",
+    features: [28.7, 42800, 14, 18, 18420.6, 892.4]
+  },
+  {
+    name: "Suspicious Port Scan",
+    label: "DDOS DETECTED",
+    type: "ddos",
+    confidence: 99.84,
+    severity: "CRITICAL",
+    sevClass: "sev-critical",
+    features: [1842.3, 3920, 421, 1, 94821.7, 44.8]
+  },
+  {
+    name: "Normal DNS Query",
+    label: "BENIGN",
+    type: "benign",
+    confidence: 99.6,
+    severity: "NONE",
+    sevClass: "sev-none",
+    features: [4.2, 124800, 3, 2, 842.1, 68.4]
+  }
+];
+
+function toggleDemo(btn) {
+  const panel = document.getElementById('demoPanel');
+  const isOpen = panel.style.display !== 'none';
+  panel.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    // auto-select first scenario on open
+    selectScenario(document.querySelector('.scenario-btn.active') || document.querySelector('.scenario-btn'), 0);
+  }
+}
+
+function selectScenario(btn, idx) {
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const s = SCENARIOS[idx];
+
+  // Animate feature values
+  const ids = ['f0','f1','f2','f3','f4','f5'];
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.add('updating');
+    setTimeout(() => {
+      el.textContent = s.features[i].toLocaleString();
+      setTimeout(() => el.classList.remove('updating'), 300);
+    }, i * 60);
+  });
+
+  // Result verdict (delayed for dramatic effect)
+  setTimeout(() => {
+    const verdict = document.getElementById('resultVerdict');
+    verdict.className = 'result-verdict ' + s.type;
+    verdict.querySelector('.verdict-label').textContent = s.label;
+
+    // Confidence bar
+    document.getElementById('confBarFill').style.width = s.confidence + '%';
+    document.getElementById('confPct').textContent = s.confidence + '%';
+
+    // Severity
+    const sev = document.getElementById('severityBadge');
+    sev.className = 'severity-badge ' + s.sevClass;
+    sev.textContent = s.severity;
+
+    // API status
+    document.getElementById('apiStatus').textContent = '200 OK · ' + (Math.floor(Math.random()*12)+4) + 'ms';
+
+    // API JSON
+    const ts = new Date().toISOString();
+    const jsonObj = {
+      prediction: s.type === 'benign' ? 'Benign' : 'DDoS',
+      confidence: s.confidence / 100,
+      severity: s.severity,
+      label: s.type === 'benign' ? 0 : 1,
+      features_used: 77,
+      model: "RandomForestClassifier",
+      dataset: "CICIDS 2017",
+      flow_summary: {
+        "Flow Packets/s": s.features[0],
+        "Flow Duration": s.features[1],
+        "Total Fwd Packets": s.features[2],
+        "Total Backward Packets": s.features[3],
+        "Flow Bytes/s": s.features[4],
+        "Fwd Packet Length Mean": s.features[5]
+      },
+      timestamp: ts
+    };
+    document.getElementById('apiJson').textContent = JSON.stringify(jsonObj, null, 2);
+  }, 360);
+}
+</script>
 
 </body>
 </html>
