@@ -947,6 +947,71 @@
       min-height: 90px;
     }
 
+
+    /* ── DEMO EXPLAINER ── */
+    .demo-explainer-intro {
+      background: rgba(77,157,224,0.06);
+      border: 1px solid rgba(77,157,224,0.15);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      font-weight: 300;
+    }
+    .demo-explainer-intro strong { color: var(--text); font-weight: 600; }
+
+    .feat-hint {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-faint);
+      display: block;
+      margin-top: 1px;
+      font-weight: 400;
+    }
+    .feat-name-wrap { display: flex; flex-direction: column; }
+
+    .demo-meaning {
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      border: 1px solid transparent;
+      font-size: 12.5px;
+      line-height: 1.85;
+      font-weight: 300;
+      transition: all 0.4s;
+      display: none;
+    }
+    .demo-meaning.visible { display: block; }
+    .demo-meaning.benign {
+      background: rgba(52,211,153,0.07);
+      border-color: rgba(52,211,153,0.2);
+      color: var(--text-muted);
+    }
+    .demo-meaning.ddos {
+      background: rgba(239,68,68,0.07);
+      border-color: rgba(239,68,68,0.22);
+      color: var(--text-muted);
+    }
+    .demo-meaning strong { font-weight: 600; }
+    .demo-meaning.benign strong { color: var(--green); }
+    .demo-meaning.ddos   strong { color: #F87171; }
+
+    .explain-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 700px) { .explain-grid { grid-template-columns: 1fr; } }
+    .explain-item {
+      background: rgba(255,255,255,0.03);
+      border-radius: 4px;
+      padding: 0.5rem 0.65rem;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .explain-item b { color: var(--text); font-size: 10.5px; font-family: var(--font-mono); display: block; margin-bottom: 2px; }
   </style>
 </head>
 <body>
@@ -1258,6 +1323,11 @@
             </div>
 
             <div class="demo-body">
+              <!-- Intro explainer -->
+              <div class="demo-explainer-intro">
+                <strong>How this works:</strong> Each button below represents a real network traffic scenario. Click one and the model instantly analyzes 77 characteristics of that network connection — the same way it monitors live traffic in a Security Operations Center — and tells you whether it's safe or a threat.
+              </div>
+
               <!-- Scenario selector -->
               <div class="scenario-grid" id="scenarioGrid">
                 <button class="scenario-btn active" onclick="selectScenario(this,0)">Normal Web Traffic</button>
@@ -1272,12 +1342,12 @@
                 <!-- Feature values -->
                 <div class="demo-features" id="demoFeatures">
                   <div class="demo-feat-label">Network Flow Features</div>
-                  <div class="feat-row"><span class="feat-name">Flow Packets/s</span><span class="feat-val" id="f0">—</span></div>
-                  <div class="feat-row"><span class="feat-name">Flow Duration (μs)</span><span class="feat-val" id="f1">—</span></div>
-                  <div class="feat-row"><span class="feat-name">Total Fwd Packets</span><span class="feat-val" id="f2">—</span></div>
-                  <div class="feat-row"><span class="feat-name">Total Bwd Packets</span><span class="feat-val" id="f3">—</span></div>
-                  <div class="feat-row"><span class="feat-name">Flow Bytes/s</span><span class="feat-val" id="f4">—</span></div>
-                  <div class="feat-row"><span class="feat-name">Fwd Pkt Length Mean</span><span class="feat-val" id="f5">—</span></div>
+                  <div class="feat-row"><span class="feat-name-wrap"><span class="feat-name">Flow Packets/s</span><span class="feat-hint">How many data packets per second — attack traffic is extremely fast</span></span><span class="feat-val" id="f0">—</span></div>
+                  <div class="feat-row"><span class="feat-name-wrap"><span class="feat-name">Flow Duration (μs)</span><span class="feat-hint">How long the connection lasted — attacks are often short bursts</span></span><span class="feat-val" id="f1">—</span></div>
+                  <div class="feat-row"><span class="feat-name-wrap"><span class="feat-name">Total Fwd Packets</span><span class="feat-hint">Packets sent toward the target — floods are massive</span></span><span class="feat-val" id="f2">—</span></div>
+                  <div class="feat-row"><span class="feat-name-wrap"><span class="feat-name">Total Bwd Packets</span><span class="feat-hint">Packets sent back — attacks often get zero response</span></span><span class="feat-val" id="f3">—</span></div>
+                  <div class="feat-row"><span class="feat-name-wrap"><span class="feat-name">Flow Bytes/s</span><span class="feat-hint">Total data volume per second — floods push huge amounts</span></span><span class="feat-val" id="f4">—</span></div>
+                  <div class="feat-row"><span class="feat-name-wrap"><span class="feat-name">Fwd Pkt Length Mean</span><span class="feat-hint">Avg size of each packet — attack packets are tiny and repetitive</span></span><span class="feat-val" id="f5">—</span></div>
                 </div>
 
                 <!-- Result panel -->
@@ -1300,6 +1370,9 @@
                   </div>
                 </div>
               </div>
+
+              <!-- What this means explainer (dynamic) -->
+              <div class="demo-meaning" id="demoMeaning"></div>
 
               <!-- API response block -->
               <div class="api-block">
@@ -1566,6 +1639,16 @@ function selectScenario(btn, idx) {
     const sev = document.getElementById('severityBadge');
     sev.className = 'severity-badge ' + s.sevClass;
     sev.textContent = s.severity;
+
+    // Dynamic meaning explainer
+    const meaning = document.getElementById('demoMeaning');
+    if (s.type === 'benign') {
+      meaning.className = 'demo-meaning benign visible';
+      meaning.innerHTML = `<strong>✓ BENIGN — This traffic is safe.</strong> The model analyzed the pattern of this network connection and recognized it as normal, legitimate activity. The traffic speed, volume, and packet sizes all match what you'd expect from everyday internet use — someone browsing a website, downloading a file, or making a DNS lookup. No action needed.<div class="explain-grid"><div class="explain-item"><b>Confidence ${s.confidence}%</b>Out of 100 decision trees in the model, nearly all agreed this is safe traffic. The higher the number, the more certain the verdict.</div><div class="explain-item"><b>Severity: NONE</b>No threat detected. A SOC analyst reviewing this alert would close it immediately with no escalation.</div><div class="explain-item"><b>Why these features?</b>The model looks at 77 traits. Low packet rate, longer duration, and balanced two-way traffic are all hallmarks of normal human browsing.</div><div class="explain-item"><b>Real-world impact</b>In a live SOC, this flow would be logged and dismissed. No firewall rule triggered, no incident ticket created.</div></div>`;
+    } else {
+      meaning.className = 'demo-meaning ddos visible';
+      meaning.innerHTML = `<strong>⚠ DDOS DETECTED — This is an attack.</strong> A DDoS (Distributed Denial-of-Service) attack floods a server with so much fake traffic that real users can't get through — like thousands of people simultaneously jamming a phone line. The model caught it by spotting the telltale signs: an enormous number of packets firing at extreme speed, nearly no traffic coming back, and each packet being tiny and identical.<div class="explain-grid"><div class="explain-item"><b>Confidence ${s.confidence}%</b>The model is almost certain this is an attack. In testing on 221,264 real flows, it correctly identified DDoS traffic 99.98% of the time.</div><div class="explain-item"><b>Severity: CRITICAL</b>The highest alert level. In a real SOC, this would trigger an immediate automated response — blocking the source IP at the firewall within seconds.</div><div class="explain-item"><b>The giveaway</b>Look at Total Backward Packets — it's near zero. The server is getting bombarded but has no real user to respond to. Normal traffic always has two-way communication.</div><div class="explain-item"><b>Real-world impact</b>Without detection, this attack could take a website offline in minutes. The ML model catches it faster than any human analyst could.</div></div>`;
+    }
 
     // API status
     document.getElementById('apiStatus').textContent = '200 OK · ' + (Math.floor(Math.random()*12)+4) + 'ms';
